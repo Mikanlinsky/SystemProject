@@ -82,6 +82,7 @@ if(isset($_SESSION['email'])){
             <div class="form-group">
                 <label for="removeUsername">Username:</label>
                 <!--Bawal parehas yung id sa name kasi taena ng mysql ayaw magremove ng user GRRRR (removeUsername_R yung pantanggal ng user)-->
+                <!--Pang client side lang yung "ID", yung "NAME" yung umaabot ng server-->
                 <input type="text" id="removeUsername" name="removeUsername_R" required>
             </div>
             <div class="form-group">
