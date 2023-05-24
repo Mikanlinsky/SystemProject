@@ -1,59 +1,111 @@
+<?php session_start();
+if(isset($_SESSION['email'])){
+    //email is in session, push through
+    header("Location: index.php");
+    exit;
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add/Remove Users</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            color: #1e1e1e;
+            width: 300px;
+            margin: 0 auto;
+            margin-top: 10%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            color: #1e1e1e;
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            color: #1e1e1e;
+            display: block;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .form-group button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add User</h2>
+        <form method="POST" action="save_user.php">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="addUser">Add User</button>
+            </div>
+        </form>
+
+        <hr>
+
+        <h2>Remove User</h2>
+        <form method="POST" action="remove_user.php">
+            <div class="form-group">
+                <label for="removeUsername">Username:</label>
+                <!--Bawal parehas yung id sa name kasi taena ng mysql ayaw magremove ng user GRRRR (removeUsername_R yung pantanggal ng user)-->
+                <input type="text" id="removeUsername" name="removeUsername_R" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="removeUsername">Remove User</button>
+            </div>
+        </form>
+
+        <hr>
+
+        <div class="form-group">
+            <button onclick="goBack()">Back</button>
+        </div>
+
+    </div>
+</body>
+</html>
+
+
+<!--Back Button -->
 <?php
-
-include ('connect.php');
-
-// Create a new user
-function addUser($username, $password) {
-    // Establish database connection
-    global $servername, $username, $password, $dbname;
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Prepare the SQL statement
-    $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-    $stmt->bind_param("ss", $username, $password);
-
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo "User added successfully.";
-    } else {
-        echo "Error adding user: " . $conn->error;
-    }
-
-    // Close the statement and connection
-    $stmt->close();
-    $conn->close();
+echo '
+<script>
+function goBack() {
+window.history.back();
 }
-
-// Remove an existing user
-function removeUser($username) {
-    // Establish database connection
-    global $servername, $username, $password, $dbname;
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Prepare the SQL statement
-    $stmt = $conn->prepare("DELETE FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo "User removed successfully.";
-    } else {
-        echo "Error removing user: " . $conn->error;
-    }
-
-    // Close the statement and connection
-    $stmt->close();
-    $conn->close();
-}
-
+</script>';
 ?>
