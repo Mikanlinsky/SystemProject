@@ -15,7 +15,7 @@
       <input type="submit" value="Login">
     </form>
     <?php
-      include("connection.php");
+      include("connect.php");
 
       // Check if the form has been submitted
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
