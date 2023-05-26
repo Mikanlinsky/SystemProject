@@ -9,8 +9,8 @@
   <form method="post" action="logout.php">
     <input type="submit" value="Logout" class="logout-btn">
   </form>
-  <form method="post" action="adduser.php">
-    <input type="submit" value="Add User" class="create-user-btn">
+  <form method="post" action="user_management.php">
+    <input type="submit" value="Add/ Remove User" class="create-user-btn">
   </form>
 </body>
 </html>
