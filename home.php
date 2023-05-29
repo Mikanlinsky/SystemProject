@@ -9,12 +9,12 @@
     <form method="post" action="./php/logout.php">
         <input type="submit" value="Logout" class="logout-btn">
     </form>
-
-    <?php require('./php/admin.php'); ?>
+    
     <?php require('./php/session_check.php'); ?>
+    <?php require('./php/admin.php'); ?>
 
     <?php if ($adminRole): ?>
-      <form method="post" action="user_management.html">
+      <form method="post" action="user_management.php">
           <input type="submit" value="User Management" class="create-user-btn">
       </form>
     <?php endif; ?>

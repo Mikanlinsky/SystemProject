@@ -1,3 +1,4 @@
+<?php require('./php/session_check.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +42,7 @@
     </div>
     <script>
         function goBack() {
-            window.location.href = "home.html";
+            window.location.href = "home.php";
         }
     </script>
 </body>
