@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Login Form</title>
-  <link rel="stylesheet" type="text/css" href="css/login.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Login Form</h1>
-    <form method="post" action="login.php">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username"><br><br>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password"><br><br>
-      <input type="submit" value="Login">
-    </form>
-    <?php
+<?php
       include("connect.php");
+      if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+        header('Location: ../home.php'); // Redirect to the dashboard or any other authorized page
+        exit;
+      }
 
       // Check if the form has been submitted
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -36,14 +24,18 @@
             // If the login is successful, set session variables and redirect to home.php
             session_start(); // Start the session
             $_SESSION['login_user'] = $username;
-            header('Location: home.php');
+            $_SESSION['loggedin'] = true;
+            $userRole = getUserRole($_POST['username']);
+            $_SESSION['userRole'] = $userRole;
+            
+            header('Location: ../home.html');
             exit(); // Terminate the script after redirecting
           }
           else {
             // If the login fails, display an error message
             $error = 'Wrong password';
             echo '<div class="error-message">' . $error . '</div>';
-            echo '<script>setTimeout(function() { window.location.href = "login.php"; }, 10000);</script>';
+            echo '<script>setTimeout(function() { window.location.href = "../login.html"; }, 10000);</script>';
             exit();
           }
         } 
@@ -51,15 +43,16 @@
           // If the login fails, display an error message
           $error = 'Username not found';
           echo '<div class="error-message">' . $error . '</div>';
-          echo '<script>setTimeout(function() { window.location.href = "login.php"; }, 10000);</script>';
+          echo '<script>setTimeout(function() { window.location.href = "../login.html"; }, 10000);</script>';
           exit();
         }
       }
+      function getUserRole($username) {
+      // Check if the username is 'admin' and assign the 'admin' role
+      if ($username === 'admin') {
+          return 'admin';
+      }
+      // For all other users, assign the 'staff' role
+      return 'staff';
+    }
     ?>
-  </body>
-</html>
-
-
-
-
-
