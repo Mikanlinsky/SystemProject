@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login Form</title>
-  <link rel="stylesheet" type="text/css" href="css/login.css">
+  <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="./css/login.css">
 </head>
 <body>
   <div class="container">
-    <h1>Login Form</h1>
+    <h1>Login</h1>
     <form method="post" action="./php/login.php">
       <label for="username">Username:</label>
       <input type="text" id="username" name="username"><br><br>
@@ -16,9 +16,3 @@
     </form>
   </body>
 </html>
-
-
-
-
-
-
